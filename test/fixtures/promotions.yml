@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  discount_rate: 1.5
+  start_date: 2023-03-24 10:30:13
+  end_date: 2023-03-24 10:30:13
+
+two:
+  name: MyString
+  description: MyText
+  discount_rate: 1.5
+  start_date: 2023-03-24 10:30:13
+  end_date: 2023-03-24 10:30:13
