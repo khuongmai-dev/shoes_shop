@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
-  validate :name, presence: true
+  validates :name, presence: true
 
-  belongs_to :category, :brand
+  belongs_to :category
   has_many :product_items, dependent: :destroy
 end
