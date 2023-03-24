@@ -5,4 +5,5 @@ class OrderLine < ApplicationRecord
   belongs_to :shop_order
 
   has_many :user_reviews, dependent: :destroy
+  has_many :shop_users, through: :user_reviews
 end
