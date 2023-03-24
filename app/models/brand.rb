@@ -5,6 +5,8 @@ class Brand < ApplicationRecord
   belongs_to :parent, class_name: 'Brand', optional: true
   has_many :children, class_name: 'Brand', foreign_key: 'parent_id', dependent: :destroy
 
+  has_many :products, dependent: :destroy
+
   validates :name, uniqueness: { scope: :parent_id, case_sensitive: false }
 
   # Validate that parent category cannot be self
