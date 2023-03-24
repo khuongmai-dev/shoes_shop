@@ -6,6 +6,7 @@ ruby "3.1.3"
 #Active Admin
 gem 'activeadmin'
 gem 'devise'
+gem 'sass-rails'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
