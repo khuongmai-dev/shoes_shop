@@ -7,6 +7,8 @@ class Category < ApplicationRecord
 
   has_many :products, dependent: :destroy
 
+  has_one_attached :image
+
   validates :name, uniqueness: { scope: :parent_id, case_sensitive: false }
 
   # Validate that parent category cannot be self
