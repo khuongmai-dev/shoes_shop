@@ -4,4 +4,6 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :product_items, dependent: :destroy
   belongs_to :brand
+
+  has_one_attached :image
 end
