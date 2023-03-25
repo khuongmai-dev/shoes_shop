@@ -1,6 +1,5 @@
 class ProductItem < ApplicationRecord
-
-  validate :price, :stock_quantity
+  validates :price, :stock_quantity, presence: true
   belongs_to :product
 
   has_many :shopping_cart_items, dependent: :destroy
