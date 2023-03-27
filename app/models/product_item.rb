@@ -9,4 +9,6 @@ class ProductItem < ApplicationRecord
 
   has_many :order_lines, dependent: :destroy
   has_many :shop_orders, through: :order_lines
+
+  has_one_attached :image
 end

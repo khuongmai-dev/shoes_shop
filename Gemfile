@@ -9,6 +9,12 @@ gem 'devise'
 gem 'sass-rails'
 gem 'image_processing'
 
+#Hotwire
+gem 'hotwire-rails', '~> 0.1.0'
+
+#form tastic
+gem 'formtastic', '~> 4.0'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
