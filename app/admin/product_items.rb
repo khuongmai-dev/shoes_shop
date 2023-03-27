@@ -22,6 +22,7 @@ ActiveAdmin.register ProductItem do
       f.input :variation_options do |variation|
         variation.inputs :name, :as => :select
       end
+
       f.input :product_id, :as => :select, collection: Product.all.map { |p| [p.name, p.id] }, include_blank: false
 
       # Variations input
