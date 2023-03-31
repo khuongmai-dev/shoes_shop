@@ -30,7 +30,6 @@ ActiveAdmin.register Product do
         row :description
         row :price
         row :stock_quantity
-        row :product_image
         row :created_at
         row :updated_at
         row :image do

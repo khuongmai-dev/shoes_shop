@@ -151,6 +151,14 @@ shoes.each do |s|
   file_name = "#{Time.now.to_i}#{file_extension}"
   # Attach the saved image to the product using ActiveStorage
   shoe.image.attach(io: file, filename: file_name)
-
-    # puts "#{shoe.errors.full_messages.join(', ')}"
+  # puts "#{shoe.errors.full_messages.join(', ')}"
 end
+
+#Create the order status
+OrderStatus.find_or_create_by(name: 'Pending')
+OrderStatus.find_or_create_by(name: 'Processing')
+OrderStatus.find_or_create_by(name: 'Shipped')
+OrderStatus.find_or_create_by(name: 'Delivered')
+OrderStatus.find_or_create_by(name: 'Cancelled')
+OrderStatus.find_or_create_by(name: 'Refunded')
+OrderStatus.find_or_create_by(name: 'Returned')
