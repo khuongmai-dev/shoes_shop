@@ -26,8 +26,11 @@ ActiveAdmin.register Product do
   show do
     panel "Product Details" do
       attributes_table_for product do
-        row :parent
         row :name
+        row :description
+        row :price
+        row :stock_quantity
+        row :product_image
         row :created_at
         row :updated_at
         row :image do

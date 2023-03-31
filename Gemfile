@@ -9,9 +9,12 @@ gem 'devise'
 gem 'sass-rails'
 gem 'image_processing'
 
-#Hotwire
-gem 'hotwire-rails', '~> 0.1.0'
+#download image and save it to local project
+gem 'open-uri'
+gem 'fileutils'
 
+#faker general
+gem 'faker'
 #form tastic
 gem 'formtastic', '~> 4.0'
 
