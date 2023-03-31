@@ -1,7 +1,7 @@
 class CreateOrderLines < ActiveRecord::Migration[7.0]
   def change
     create_table :order_lines do |t|
-      t.references :product_item, null: false, foreign_key: true
+      t.references :product, null: false, foreign_key: true
       t.references :shop_order, null: false, foreign_key: true
       t.integer :quantity
       t.decimal :price

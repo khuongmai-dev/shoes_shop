@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,13 +111,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
   end
 
   create_table "order_lines", force: :cascade do |t|
-    t.bigint "product_item_id", null: false
+    t.bigint "product_id", null: false
     t.bigint "shop_order_id", null: false
     t.integer "quantity"
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_item_id"], name: "index_order_lines_on_product_item_id"
+    t.index ["product_id"], name: "index_order_lines_on_product_id"
     t.index ["shop_order_id"], name: "index_order_lines_on_shop_order_id"
   end
 
@@ -141,31 +141,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "product_item_variation_options", force: :cascade do |t|
-    t.bigint "product_item_id", null: false
-    t.bigint "variation_option_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_item_id"], name: "index_product_item_variation_options_on_product_item_id"
-    t.index ["variation_option_id"], name: "index_product_item_variation_options_on_variation_option_id"
-  end
-
-  create_table "product_items", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.string "SKU"
-    t.integer "stock_quantity"
-    t.string "product_image"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_items_on_product_id"
-  end
-
   create_table "products", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "name"
     t.text "description"
     t.bigint "brand_id", null: false
+    t.decimal "price"
+    t.integer "stock_quantity"
     t.string "product_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -225,11 +207,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
   end
 
   create_table "shopping_cart_items", force: :cascade do |t|
-    t.bigint "product_item_id", null: false
+    t.bigint "product_id", null: false
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_item_id"], name: "index_shopping_cart_items_on_product_item_id"
+    t.index ["product_id"], name: "index_shopping_cart_items_on_product_id"
   end
 
   create_table "shopping_carts", force: :cascade do |t|
@@ -281,32 +263,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
     t.index ["shop_user_id"], name: "index_user_reviews_on_shop_user_id"
   end
 
-  create_table "variation_options", force: :cascade do |t|
-    t.bigint "variation_id", null: false
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["variation_id"], name: "index_variation_options_on_variation_id"
-  end
-
-  create_table "variations", force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_variations_on_category_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "provinces"
   add_foreign_key "category_promotions", "categories"
   add_foreign_key "category_promotions", "promotions"
-  add_foreign_key "order_lines", "product_items"
+  add_foreign_key "order_lines", "products"
   add_foreign_key "order_lines", "shop_orders"
-  add_foreign_key "product_item_variation_options", "product_items"
-  add_foreign_key "product_item_variation_options", "variation_options"
-  add_foreign_key "product_items", "products"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
   add_foreign_key "provinces", "countries"
@@ -315,7 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
   add_foreign_key "shop_orders", "shipping_methods"
   add_foreign_key "shop_orders", "tax_rates"
   add_foreign_key "shop_orders", "user_payment_methods"
-  add_foreign_key "shopping_cart_items", "product_items"
+  add_foreign_key "shopping_cart_items", "products"
   add_foreign_key "shopping_carts", "shop_users"
   add_foreign_key "shopping_carts", "shopping_cart_items"
   add_foreign_key "user_addresses", "addresses"
@@ -324,6 +287,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_155442) do
   add_foreign_key "user_payment_methods", "shop_users"
   add_foreign_key "user_reviews", "order_lines"
   add_foreign_key "user_reviews", "shop_users"
-  add_foreign_key "variation_options", "variations"
-  add_foreign_key "variations", "categories"
 end
