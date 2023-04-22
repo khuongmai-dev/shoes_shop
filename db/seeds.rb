@@ -1,7 +1,7 @@
 require 'csv'
 require 'faker'
 require 'open-uri'
-require 'fileutils'
+# require 'fileutils'
 require_relative '../app/models/product.rb'
 
 #Remove the existing data

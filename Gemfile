@@ -13,14 +13,17 @@ gem 'image_processing'
 gem 'open-uri'
 gem 'fileutils'
 
-#Country State Select is a Ruby Gem that aims to make Country and State/Province selection
-gem 'country_state_select', '~> 3.0', '>= 3.0.1'
-
 #faker general
 gem 'faker'
 #form tastic
 gem 'formtastic', '~> 4.0'
 
+# for hashing passwords
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
+# Pagination
+gem 'kaminari'
+
+# gem 'country_select'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 

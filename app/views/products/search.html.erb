@@ -1,8 +1,13 @@
-<%= render "layouts/navbar", current_page: "category"%>
-
+<%= render partial: "layouts/navbar", current_page: "search_page", cateid: @category_id, keywords: @query%>
 <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
+            <h2>You have searched for keywords: <%= @query %></h2>
+            <div>
+              <% if @products.count == 0%>
+                <h2>Nothing was found</h2>
+              <% end %>
+            </div>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <% @products.each do |product| %>
                     <div class="col mb-5">

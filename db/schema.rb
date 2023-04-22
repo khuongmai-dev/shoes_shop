@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_31_214741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.string "street"
     t.string "postal_code"
     t.string "city"
-    t.bigint "province_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["province_id"], name: "index_addresses_on_province_id"
+    t.string "province"
+    t.string "country"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -102,12 +102,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_promotions_on_category_id"
     t.index ["promotion_id"], name: "index_category_promotions_on_promotion_id"
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "order_lines", force: :cascade do |t|
@@ -163,14 +157,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "provinces", force: :cascade do |t|
-    t.string "name"
-    t.bigint "country_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_provinces_on_country_id"
   end
 
   create_table "shipping_methods", force: :cascade do |t|
@@ -265,14 +251,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "provinces"
   add_foreign_key "category_promotions", "categories"
   add_foreign_key "category_promotions", "promotions"
   add_foreign_key "order_lines", "products"
   add_foreign_key "order_lines", "shop_orders"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
-  add_foreign_key "provinces", "countries"
   add_foreign_key "shop_orders", "addresses"
   add_foreign_key "shop_orders", "order_statuses"
   add_foreign_key "shop_orders", "shipping_methods"

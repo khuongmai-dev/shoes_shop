@@ -1,0 +1,25 @@
+<!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand text-white text-decoration-none" href="/">ShoeShop</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link text-white-50 text-decoration-none" href="/categories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50 text-decoration-none" href="/brands">Brands</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50 text-decoration-none" href="/cart">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50 text-decoration-none" href="/pages/contact-us">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50 text-decoration-none" href="/pages/about-us">About</a></li>
+                    </ul>
+                    <div class="d-flex justify-content-end">
+                      <%= form_with(url: search_products_path, method: :get, local: true, class: "col-8 col-lg-8 mb-3 mb-lg-0 me-lg-3 d-flex") do |form| %>
+                        <%= select_tag (:cat_id), options_from_collection_for_select(@categories, :id, :name, @selected_category.try(:id)), :prompt => "All" %>
+                        <%= text_field_tag(:keywords, @query, style: "width: 600px;", class: "form-control form-control-light text-bg-light", placeholder: 'Search') %>
+                        <button type="submit" class="button is-primary">
+                          Search
+                        </button>
+                      <% end %>
+                    </div>
+                </div>
+            </div>
+        </nav>

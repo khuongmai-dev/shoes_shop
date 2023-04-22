@@ -1,0 +1,7 @@
+<%= render "layouts/navbar", current_page: "brands"%>
+
+<ul>
+  <% @brands.each do |brand| %>
+    <li><%= link_to brand.name, brand_path(brand) %></li>
+  <% end %>
+</ul>
