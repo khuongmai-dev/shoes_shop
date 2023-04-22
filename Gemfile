@@ -1,13 +1,16 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.3"
+ruby "3.1.2"
 
 #Active Admin
 gem 'activeadmin'
 gem 'devise'
 gem 'sass-rails'
 gem 'image_processing'
+
+# Stripe
+gem "stripe"
 
 #download image and save it to local project
 gem 'open-uri'

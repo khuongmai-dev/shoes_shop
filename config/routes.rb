@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'checkout/index'
+  get 'shopping_cart_items/index'
+  get 'profile/show'
+  get 'shop_users/show'
   get 'cart/index'
   get 'brands/index'
   get 'brands/show'
@@ -17,11 +21,32 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :cart
   resources :categories, only: [:index, :show]
 
   resources :brands, only: [:index, :show]
 
   get 'pages/:permalink', to: 'pages#show', as: 'page'
   # resources :pages
+
+  # devise_for :shop_users
+  devise_for :shop_users, controllers: {
+    sessions: 'shop_users/sessions',
+    registrations: 'shop_users/registrations',
+    passwords: 'shop_users/passwords',
+    confirmations: 'shop_users/confirmations'
+  }
+  get '/profile', to: 'shop_users#profile', as: :shop_user_profile
+
+  devise_scope :shop_user do
+    get '/shop_users/sign_out', to: 'devise/sessions#destroy'
+  end
+
+  resources :shop_users, only: [:show] do
+    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+  end
+
+  resources :cart, only: [:index , :destroy, :update]
+  post '/cart', to: 'cart#create', as: 'add_to_cart'
+
+  resources :checkout
 end

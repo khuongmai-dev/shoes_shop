@@ -1,8 +1,9 @@
 class ShopUser < ApplicationRecord
-  before_action :authenticate_shopuser!
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
-
-  validates :phone_number, presence: true
   validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_many :user_addresses, dependent: :delete_all
@@ -15,11 +16,16 @@ class ShopUser < ApplicationRecord
   has_many :shop_orders, dependent: :delete_all
   has_many :user_payment_methods, dependent: :delete_all
 
-  has_secure_password
-
   accepts_nested_attributes_for :addresses, allow_destroy: true
   def address_list
     addresses.map {|a| "#{a.unit_number}, #{a.street}, #{a.city}, #{a.province}, #{a.country}"}.join(", ").html_safe
     # addresses.map(&:full_address).join('<br>').html_safe
+  end
+
+  def email
+    email_address
+  end
+  def will_save_change_to_email?
+    false
   end
 end

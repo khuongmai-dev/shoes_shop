@@ -21,7 +21,6 @@ class Page < ApplicationRecord
     end
     end
   end
-
   validates :title, :content, :permalink, presence: true
   validates :permalink, uniqueness: true
 end
