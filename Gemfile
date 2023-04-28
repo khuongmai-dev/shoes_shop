@@ -12,6 +12,10 @@ gem 'image_processing'
 # Stripe
 gem "stripe"
 
+gem 'sass-rails'
+
+gem 'rubocop', '~> 1.50', '>= 1.50.2'
+
 #download image and save it to local project
 gem 'open-uri'
 gem 'fileutils'
@@ -96,3 +100,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "pay", "~> 6.3"

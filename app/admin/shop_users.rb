@@ -99,6 +99,5 @@ ActiveAdmin.register ShopUser do
     #   end
     # end
   end
-
 end
 end

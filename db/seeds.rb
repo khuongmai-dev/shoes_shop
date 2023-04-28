@@ -155,7 +155,7 @@ shoes.each do |s|
 end
 
 #Create the order status
-OrderStatus.find_or_create_by(name: 'Pending')
+OrderStatus.find_or_create_by(name: 'Paid')
 OrderStatus.find_or_create_by(name: 'Processing')
 OrderStatus.find_or_create_by(name: 'Shipped')
 OrderStatus.find_or_create_by(name: 'Delivered')

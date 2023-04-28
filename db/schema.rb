@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_194758) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -129,12 +129,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_194758) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "payment_types", force: :cascade do |t|
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "name"
@@ -159,29 +153,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_194758) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shipping_methods", force: :cascade do |t|
-    t.string "name"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "shop_orders", force: :cascade do |t|
-    t.integer "shop_user"
+    t.integer "shop_user_id"
     t.datetime "order_date"
-    t.bigint "user_payment_method_id", null: false
     t.bigint "address_id", null: false
-    t.bigint "shipping_method_id", null: false
-    t.bigint "tax_rate_id", null: false
     t.decimal "order_total"
     t.bigint "order_status_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_status"
+    t.float "tax_rate"
+    t.decimal "order_subtotal"
     t.index ["address_id"], name: "index_shop_orders_on_address_id"
     t.index ["order_status_id"], name: "index_shop_orders_on_order_status_id"
-    t.index ["shipping_method_id"], name: "index_shop_orders_on_shipping_method_id"
-    t.index ["tax_rate_id"], name: "index_shop_orders_on_tax_rate_id"
-    t.index ["user_payment_method_id"], name: "index_shop_orders_on_user_payment_method_id"
   end
 
   create_table "shop_users", force: :cascade do |t|
@@ -214,12 +198,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_194758) do
     t.index ["shopping_cart_item_id"], name: "index_shopping_carts_on_shopping_cart_item_id"
   end
 
-  create_table "tax_rates", force: :cascade do |t|
-    t.decimal "rate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "user_addresses", force: :cascade do |t|
     t.boolean "is_default"
     t.bigint "shop_user_id", null: false
@@ -228,19 +206,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_194758) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_user_addresses_on_address_id"
     t.index ["shop_user_id"], name: "index_user_addresses_on_shop_user_id"
-  end
-
-  create_table "user_payment_methods", force: :cascade do |t|
-    t.bigint "shop_user_id", null: false
-    t.bigint "payment_type_id", null: false
-    t.string "provider"
-    t.integer "account_number"
-    t.date "expriry_date"
-    t.boolean "is_default"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["payment_type_id"], name: "index_user_payment_methods_on_payment_type_id"
-    t.index ["shop_user_id"], name: "index_user_payment_methods_on_shop_user_id"
   end
 
   create_table "user_reviews", force: :cascade do |t|
@@ -264,16 +229,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_194758) do
   add_foreign_key "products", "categories"
   add_foreign_key "shop_orders", "addresses"
   add_foreign_key "shop_orders", "order_statuses"
-  add_foreign_key "shop_orders", "shipping_methods"
-  add_foreign_key "shop_orders", "tax_rates"
-  add_foreign_key "shop_orders", "user_payment_methods"
   add_foreign_key "shopping_cart_items", "products"
   add_foreign_key "shopping_carts", "shop_users"
   add_foreign_key "shopping_carts", "shopping_cart_items"
   add_foreign_key "user_addresses", "addresses"
   add_foreign_key "user_addresses", "shop_users"
-  add_foreign_key "user_payment_methods", "payment_types"
-  add_foreign_key "user_payment_methods", "shop_users"
   add_foreign_key "user_reviews", "order_lines"
   add_foreign_key "user_reviews", "shop_users"
 end
