@@ -29,9 +29,9 @@ development:
 
 production:
   adapter: postgresql
-  host: 127.0.0.1
-  port: 5455
-  database: shoeshop
-  username: postgresUser
-  password: postgresPW
+  host: postgres://shoeshop_u1pd_user:P9Gxg3IeEF5SB9L04jcewoWTBNqj4N2V@dpg-cld48fmg1b2c73f3sueg-a/shoeshop_u1pd
+  port: 5432
+  database: shoeshop_u1pd
+  username: shoeshop_u1pd_user
+  password: P9Gxg3IeEF5SB9L04jcewoWTBNqj4N2V
   timeout: 20000
