@@ -61,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
     t.string "street"
     t.string "postal_code"
     t.string "city"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "province"
     t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -129,6 +129,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payment_types", force: :cascade do |t|
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "name"
@@ -154,31 +160,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
   end
 
   create_table "shop_orders", force: :cascade do |t|
-    t.integer "shop_user_id"
+    t.integer "shop_user"
     t.datetime "order_date"
     t.bigint "address_id", null: false
     t.decimal "order_total"
     t.bigint "order_status_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "payment_status"
     t.float "tax_rate"
     t.decimal "order_subtotal"
+    t.string "payment_status"
     t.index ["address_id"], name: "index_shop_orders_on_address_id"
     t.index ["order_status_id"], name: "index_shop_orders_on_order_status_id"
   end
 
   create_table "shop_users", force: :cascade do |t|
     t.integer "phone_number"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email_address", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.index ["email_address"], name: "index_shop_users_on_email_address"
-    t.index ["reset_password_token"], name: "index_shop_users_on_reset_password_token", unique: true
   end
 
   create_table "shopping_cart_items", force: :cascade do |t|
@@ -208,6 +208,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
     t.index ["shop_user_id"], name: "index_user_addresses_on_shop_user_id"
   end
 
+  create_table "user_payment_methods", force: :cascade do |t|
+    t.bigint "shop_user_id", null: false
+    t.bigint "payment_type_id", null: false
+    t.string "provider"
+    t.integer "account_number"
+    t.date "expriry_date"
+    t.boolean "is_default"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_type_id"], name: "index_user_payment_methods_on_payment_type_id"
+    t.index ["shop_user_id"], name: "index_user_payment_methods_on_shop_user_id"
+  end
+
   create_table "user_reviews", force: :cascade do |t|
     t.bigint "shop_user_id", null: false
     t.bigint "order_line_id", null: false
@@ -234,6 +247,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
   add_foreign_key "shopping_carts", "shopping_cart_items"
   add_foreign_key "user_addresses", "addresses"
   add_foreign_key "user_addresses", "shop_users"
+  add_foreign_key "user_payment_methods", "payment_types"
+  add_foreign_key "user_payment_methods", "shop_users"
   add_foreign_key "user_reviews", "order_lines"
   add_foreign_key "user_reviews", "shop_users"
 end

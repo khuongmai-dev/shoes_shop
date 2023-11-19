@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class AddDeviseToShopUsers < ActiveRecord::Migration[7.0]
+class AddDeviseToAdminUsers < ActiveRecord::Migration[7.0]
   def self.up
-    change_table :shop_users do |t|
+    change_table :admin_users do |t|
       ## Database authenticatable
-      # t.string :email_address, null: false, default: ""
+      t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -37,10 +37,10 @@ class AddDeviseToShopUsers < ActiveRecord::Migration[7.0]
       # t.timestamps null: false
     end
 
-    add_index :shop_users, :email_address,                unique: false
-    add_index :shop_users, :reset_password_token, unique: true
-    # add_index :shop_users, :confirmation_token,   unique: true
-    # add_index :shop_users, :unlock_token,         unique: true
+    add_index :admin_users, :email,                unique: true
+    add_index :admin_users, :reset_password_token, unique: true
+    # add_index :admin_users, :confirmation_token,   unique: true
+    # add_index :admin_users, :unlock_token,         unique: true
   end
 
   def self.down

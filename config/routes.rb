@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
   get 'checkout/index'
   get 'shopping_cart_items/index'
   get 'profile/show'
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   get 'brands/show'
   get 'products/index'
   get 'products/show'
-  devise_for :admin_users, ActiveAdmin::Devise.config
+
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
