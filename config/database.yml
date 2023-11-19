@@ -27,6 +27,11 @@ development:
 #   <<: *default
 #   database: db/test.sqlite3
 
-# production:
-#   <<: *default
-#   database: db/production.sqlite3
+production:
+  adapter: postgresql
+  host: 127.0.0.1
+  port: 5455
+  database: shoeshop
+  username: postgresUser
+  password: postgresPW
+  timeout: 20000

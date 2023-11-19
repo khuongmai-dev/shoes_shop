@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-sm-3">
+    <h6 class="mb-0">Full Name</h6>
+  </div>
+  <div class="col-sm-9 text-secondary">
+    <%= current_shop_user.email_address.include?("@") ? current_shop_user.email_address.split("@")[0] : "Invalid email address" %>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-3">
+    <h6 class="mb-0">Email</h6>
+  </div>
+  <div class="col-sm-9 text-secondary">
+    <%= @user.email_address %>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-3">
+    <h6 class="mb-0">Phone</h6>
+  </div>
+  <div class="col-sm-9 text-secondary">
+    <%= @user.phone_number %>
+  </div>
+</div>
+<hr>
+<% if @addresses.any? %>
+  <% @addresses.each_with_index do |address, index| %>
+    <div class="row">
+      <div class="col-sm-3">
+        <h6 class="mb-0">Address <%= index + 1 %> </h6>
+      </div>
+      <div class="col-sm-7 text-secondary">
+        <%= "#{address.unit_number} #{address.street}, #{address.city}, #{address.province}, #{address.country} (#{address.postal_code})" %>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn text-decoration-none" target="__blank" href="#">Edit</a>
+      </div>
+      <div class="col-sm-1">
+        <a class="btn text-decoration-none" target="__blank" href="#">Remove</a>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<hr>

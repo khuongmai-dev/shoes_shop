@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.3"
+ruby "3.1.2"
 
 #Active Admin
 gem 'activeadmin'
@@ -9,18 +9,28 @@ gem 'devise'
 gem 'sass-rails'
 gem 'image_processing'
 
+# Stripe
+gem "stripe"
+
+gem 'sass-rails'
+
+gem 'rubocop', '~> 1.50', '>= 1.50.2'
+
 #download image and save it to local project
 gem 'open-uri'
 gem 'fileutils'
-
-#Country State Select is a Ruby Gem that aims to make Country and State/Province selection
-gem 'country_state_select', '~> 3.0', '>= 3.0.1'
 
 #faker general
 gem 'faker'
 #form tastic
 gem 'formtastic', '~> 4.0'
 
+# for hashing passwords
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
+# Pagination
+gem 'kaminari'
+
+# gem 'country_select'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
@@ -90,3 +100,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "pay", "~> 6.3"

@@ -5,11 +5,13 @@ one:
   street: MyString
   postal_code: MyString
   city: MyString
-  province: one
+  province: MyString
+  country: MyString
 
 two:
   unit_number: 1
   street: MyString
   postal_code: MyString
   city: MyString
-  province: two
+  province: MyString
+  country: MyString

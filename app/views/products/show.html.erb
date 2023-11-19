@@ -1,0 +1,49 @@
+<%= render "layouts/navbar", current_page: "product"%>
+
+<!-- Product section-->
+<section class="py-5">
+          <p class="ml-3 truncate font-medium text-white">
+            <span class="hidden md:inline"><%= flash[:notice] %></span>
+            <span class="inline md:hidden"><%= flash[:mobile_notice] %></span>
+          </p>
+    <div class="container px-4 px-lg-5 my-5">
+    <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><%= link_to @product.category.name, @product.category %></li>
+            </ol>
+          </nav>
+          <!-- /Breadcrumb -->
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+              <% if @product.image.present? %>
+                <%= image_tag @product.image, class: "card-img-top mb-5 mb-md-0", alt:@product.name %>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder"><%= @product.name%></h1>
+                <div class="fs-5 mb-5">
+                    Price: <span class="text-decoration-none">$<%= @product.price%></span>
+                </div>
+                <div class="fs-5 mb-5">
+                    Quantity: <span class="text-decoration-none">$<%= @product.stock_quantity%></span>
+                </div>
+                <p class="lead"><%= @product.description%></p>
+                <div class="d-flex">
+
+                </div>
+                <div class="d-flex">
+                    <%= form_with url: add_to_cart_path(@product), method: :post do %>
+                      <%= hidden_field_tag :id, @product.id %>
+                      <%= hidden_field_tag :quantity, 1 %>
+                      <%#= submit_tag "Add to cart", class: "btn btn-outline-dark flex-shrink-0" %>
+                      <button type="submit" class="btn btn-outline-dark flex-shrink-0">
+                      Add to cart
+                      </button>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

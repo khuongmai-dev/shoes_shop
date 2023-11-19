@@ -1,0 +1,25 @@
+<%= render "layouts/navbar", current_page: "current_user_profile"%>
+
+<div class="container py-5">
+    <div class="main-body">
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+          </nav>
+          <!-- /Breadcrumb -->
+          <div class="row gutters-sm">
+            <div class="col-md-12">
+              <div class="card mb-3">
+                <div class="card-body">
+                   <%= render "shop_users/user_information", current_page: "user_information_profile" %>
+                   <%= render "shop_users/user_information_form", current_page: "user_information_form_profile" %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>

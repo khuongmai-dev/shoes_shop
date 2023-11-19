@@ -9,7 +9,7 @@ class Page < ApplicationRecord
   # Loop until a unique permalink is found
   loop do
     if permalink_count > 0
-      permalink = "#{base_permalink} - #{permalink_count}"
+      permalink = "#{base_permalink}-#{permalink_count}"
     end
 
     if Page.exists?(permalink: permalink)
@@ -19,9 +19,8 @@ class Page < ApplicationRecord
       self.permalink = permalink
       break
     end
+    end
   end
-end
-
   validates :title, :content, :permalink, presence: true
   validates :permalink, uniqueness: true
 end
