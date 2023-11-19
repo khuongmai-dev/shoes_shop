@@ -1,7 +1,7 @@
 require 'csv'
 require 'faker'
 require 'open-uri'
-require 'fileutils'
+# require 'fileutils'
 require_relative '../app/models/product.rb'
 
 #Remove the existing data
@@ -155,7 +155,7 @@ shoes.each do |s|
 end
 
 #Create the order status
-OrderStatus.find_or_create_by(name: 'Pending')
+OrderStatus.find_or_create_by(name: 'Paid')
 OrderStatus.find_or_create_by(name: 'Processing')
 OrderStatus.find_or_create_by(name: 'Shipped')
 OrderStatus.find_or_create_by(name: 'Delivered')

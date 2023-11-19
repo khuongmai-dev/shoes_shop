@@ -1,0 +1,24 @@
+<div class="text-center col-2 d-none d-lg-block">
+  <% if current_shop_user %>
+    <div class="dropdown">
+      <a href="" class="d-block link-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://pbs.twimg.com/profile_images/378800000857919980/lHqPIZza_400x400.png" alt="mdo" width="32" height="32" class="rounded-circle">
+      </a>
+      <ul class="dropdown-menu text-small">
+        <li>
+        <text class="px-3">
+        <%= current_shop_user.email_address.include?("@") ? current_shop_user.email_address.split("@")[0] : "Invalid email address" %>
+        </text></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><%= link_to "Profile", current_shop_user, class: "dropdown-item text-decoration-none" %></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><%= link_to "Sign out", destroy_shop_user_session_path, class: "dropdown-item text-decoration-none" %></li>
+      </ul>
+    </div>
+  </div>
+  <% else %>
+    <%= link_to "Login", new_shop_user_session_path, class: "btn btn-outline-light" %>
+    <%# <button type="button" class="btn btn-outline-light me-2">Login</button> %>
+  <% end %>
+
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_162339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.string "street"
     t.string "postal_code"
     t.string "city"
-    t.bigint "province_id", null: false
+    t.string "province"
+    t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["province_id"], name: "index_addresses_on_province_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -102,12 +102,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_promotions_on_category_id"
     t.index ["promotion_id"], name: "index_category_promotions_on_promotion_id"
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "order_lines", force: :cascade do |t|
@@ -165,41 +159,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "provinces", force: :cascade do |t|
-    t.string "name"
-    t.bigint "country_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_provinces_on_country_id"
-  end
-
-  create_table "shipping_methods", force: :cascade do |t|
-    t.string "name"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "shop_orders", force: :cascade do |t|
     t.integer "shop_user"
     t.datetime "order_date"
-    t.bigint "user_payment_method_id", null: false
     t.bigint "address_id", null: false
-    t.bigint "shipping_method_id", null: false
-    t.bigint "tax_rate_id", null: false
     t.decimal "order_total"
     t.bigint "order_status_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "tax_rate"
+    t.decimal "order_subtotal"
+    t.string "payment_status"
     t.index ["address_id"], name: "index_shop_orders_on_address_id"
     t.index ["order_status_id"], name: "index_shop_orders_on_order_status_id"
-    t.index ["shipping_method_id"], name: "index_shop_orders_on_shipping_method_id"
-    t.index ["tax_rate_id"], name: "index_shop_orders_on_tax_rate_id"
-    t.index ["user_payment_method_id"], name: "index_shop_orders_on_user_payment_method_id"
   end
 
   create_table "shop_users", force: :cascade do |t|
-    t.string "email_address"
     t.integer "phone_number"
     t.string "password"
     t.datetime "created_at", null: false
@@ -221,12 +196,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
     t.datetime "updated_at", null: false
     t.index ["shop_user_id"], name: "index_shopping_carts_on_shop_user_id"
     t.index ["shopping_cart_item_id"], name: "index_shopping_carts_on_shopping_cart_item_id"
-  end
-
-  create_table "tax_rates", force: :cascade do |t|
-    t.decimal "rate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "user_addresses", force: :cascade do |t|
@@ -265,19 +234,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_033249) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "provinces"
   add_foreign_key "category_promotions", "categories"
   add_foreign_key "category_promotions", "promotions"
   add_foreign_key "order_lines", "products"
   add_foreign_key "order_lines", "shop_orders"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
-  add_foreign_key "provinces", "countries"
   add_foreign_key "shop_orders", "addresses"
   add_foreign_key "shop_orders", "order_statuses"
-  add_foreign_key "shop_orders", "shipping_methods"
-  add_foreign_key "shop_orders", "tax_rates"
-  add_foreign_key "shop_orders", "user_payment_methods"
   add_foreign_key "shopping_cart_items", "products"
   add_foreign_key "shopping_carts", "shop_users"
   add_foreign_key "shopping_carts", "shopping_cart_items"

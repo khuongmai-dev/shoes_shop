@@ -1,0 +1,127 @@
+<%= render "layouts/navbar", current_page: "product"%>
+<section>
+  <details>
+  <summary>Shopping Cart (<%= @cart.size %>)</summary>
+    <ul>
+      <% @cart.each_with_index do |cart_item, i| %>
+        <li><%= "#{cart_item} and index: #{i}"%></li>
+      <% end %>
+    </ul>
+  </details>
+</section>
+
+<!-- cart + summary -->
+<section class="bg-light my-5">
+  <div class="container">
+    <div class="row">
+    <h2>Shopping Cart</h2>
+      <!-- cart -->
+      <div class="col-lg-9">
+        <div class="card border">
+          <div class="m-4">
+
+          <% @products.each_with_index do |product, i| %>
+            <div class="row gy-3 mb-4">
+              <div class="col-lg-5">
+                <div class="me-lg-5">
+                  <div class="d-flex">
+                    <% if product.image.present? %>
+                     <%= image_tag product.image, class: "border rounded me-3", style: "width: 96px; height: 96px;", alt:product.name %>
+                     <% else %>
+                      <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/14.webp" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                    <% end %>
+                    <div class="">
+                      <a href="/products/<%= product.id %>" class="nav-link"><%= product.name %></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                <div class="">
+                  <text class="h6">$<%= product.price %></text> <br />
+                  <small class="text-muted text-nowrap">  / per item </small>
+                </div>
+              </div>
+              <div class="col-lg col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                <div class="">
+                  <text class="h6">$<%= (@cart[i]["quantity"].to_i * product.price) %></text> <br />
+                </div>
+              </div>
+              <div class="col-lg-2 col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
+                <div class="float-md-end">
+                  <%= form_with url:cart_path(product), method: :put do %>
+                    <%= hidden_field_tag(:id, product.id) %>
+                    <%= text_field_tag(:update_quantity, @cart[i]["quantity"], type: 'number', min:"1", max:"20", class:"me-4") %>
+                    <button type="submit" class="btn btn-light">
+                      <span>Update</span>
+                    </button>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-lg col-sm-6 d-flex">
+                <div class="float-md-end">
+                <%= form_with url:cart_path(product), method: :delete do %>
+                  <%= hidden_field_tag(:id, product.id) %>
+                  <button type="submit" class="btn btn-light">
+                    <span>Remove</span>
+                  </button>
+                <% end %>
+                </div>
+              </div>
+            </div>
+             <% end %>
+          </div>
+
+
+          <div class="border-top pt-4 mx-4 mb-4">
+            <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- cart -->
+      <!-- summary -->
+      <div class="col-lg-3">
+        <div class="card mb-3 border">
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label class="form-label">Have coupon?</label>
+                <div class="input-group">
+                  <input type="text" class="form-control border" name="" placeholder="Coupon code" />
+                  <button class="btn btn-light border">Apply</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card shadow-0 border">
+          <div class="card-body">
+            <%# <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2">$329.00</p>
+            </div> %>
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2 fw-bold">$<%= @total %></p>
+            </div>
+
+            <div class="mt-3">
+              <%= form_with url: checkout_create_path, data: { turbo: false }, remote: true do %>
+                <%#= submit_tag "Add to cart", class: "btn btn-outline-dark flex-shrink-0" %>
+                <button type="submit" class="btn btn-success w-100 shadow-0 mb-2">
+                Checkout
+                </button>
+              <% end %>
+              <a href="/" class="btn btn-light w-100 border mt-2"> Back to shop </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- summary -->
+    </div>
+  </div>
+</section>

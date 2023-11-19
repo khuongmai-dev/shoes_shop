@@ -1,0 +1,91 @@
+<%= render "layouts/navbar", current_page: "product"%>
+<section>
+<div class="container-fluid justify-content-center">
+  <div class="container">
+    <!-- Title -->
+    <div class="d-flex justify-content-md-center py-3">
+      <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Invoice</h2>
+    </div>
+
+    <!-- Main content -->
+    <div class="row justify-content-md-center">
+      <div class="col-lg-8">
+        <!-- Details -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="mb-3 d-flex justify-content-between">
+              <div>
+                <span class="me-3">Order #<%= @order.id %></span>
+                <span class="me-3">Visa -1234</span>
+                <span class="badge rounded-pill bg-info">SHIPPING</span>
+              </div>
+            </div>
+            <table class="table table-borderless">
+              <tbody>
+                <% @products.each.each_with_index do |product, index| %>
+                <tr>
+                  <td>
+                    <div class="d-flex mb-2">
+                      <div class="flex-shrink-0">
+                        <% if product.image.present? %>
+                          <%= image_tag product.image, class: "img-fluid", alt: product.name, width: "35" %>
+                        <% end %>
+                        <%# <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="" width="35" class="img-fluid"> %>
+                      </div>
+                      <div class="flex-lg-grow-1 ms-3">
+                        <h6 class="small mb-0"><%= product.name %></h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td><%= @cart_items[index]["quantity"] %></td>
+                  <td class="text-end">$<%= (@cart_items[index]["quantity"].to_i * product.price).round(2) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2">Subtotal</td>
+                  <td class="text-end">$ <%= @order.order_subtotal %></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Tax</td>
+                  <td class="text-end">$ <%= @order.tax_rate %></td>
+                </tr>
+                <%# <tr>
+                  <td colspan="2">Discount (Code: NEWYEAR)</td>
+                  <td class="text-danger text-end">-$10.00</td>
+                </tr> %>
+                <tr class="fw-bold">
+                  <td colspan="2">TOTAL</td>
+                  <td class="text-end">$ <%= @order.order_total %> </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <!-- Payment -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <h3 class="h6">Payment Method</h3>
+                <p>Visa -1234 <br>
+                Total: $<%= @order.order_total %> <span class="badge bg-success rounded-pill"> <%= @order.payment_status %></span></p>
+              </div>
+              <div class="col-lg-6">
+                <h3 class="h6">Billing address</h3>
+                <address>
+                  <strong><%= @customer.email_address %></strong>
+                  <br><%= @address.street %><br>
+                  <%= @address.city %>, <%= @address.province %>, <%= @address.country %>, <%= @address.postal_code %><br>
+                  <abbr title="Phone">P:</abbr> <%= @customer.phone_number %>
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

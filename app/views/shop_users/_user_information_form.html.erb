@@ -1,0 +1,42 @@
+<%= link_to 'Add new address', new_shop_user_address_path(@user) %>
+
+<h2>New address</h2>
+<%= form_with url: shop_user_path(@user), local: true, class: "row g-3", method: :post do |form| %>
+  <%= hidden_field_tag :id, @user.id %>
+  <div class="col-6">
+    <%= form.label :unit_number, class: "form-label" %>
+    <%= form.text_field :unit_number, class: "form-control" %>
+  </div>
+  <div class="col-12">
+    <%= form.label :street , class: "form-label" %>
+    <%= form.text_field :street, class: "form-control" %>
+  </div>
+  <div class="col-md-6">
+    <%= form.label :city %>
+    <%= form.text_field :city, class: "form-control" %>
+  </div>
+  <div class="col-md-6">
+    <%= form.label :province %>
+    <%= form.text_field :province, class: "form-control" %>
+  </div>
+  <div class="col-md-6">
+    <%= form.label :country %>
+    <%= form.text_field :country , class: "form-control"%>
+  </div>
+  <div class="col-md-6">
+    <%= form.label :postal_code %>
+    <%= form.text_field :postal_code, class: "form-control" %>
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <%= form.check_box :is_default %>
+      <%= form.label :Default %>
+    </div>
+  </div>
+  <div class="col-12">
+   <button type="submit" class="btn btn-outline-dark flex-shrink-0">
+                      Create
+                      </button>
+    <%= form.button "Create", class: "btn btn-primary" %>
+  </div>
+<% end %>
